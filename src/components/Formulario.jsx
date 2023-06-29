@@ -15,6 +15,7 @@ const InputSubmit = styled.input`
     border-radius: 5px;
     // Cuando se pone el mouse por encima del botón se cargue el color con una animación
     transition: background-color .3s ease;
+    margin-top: 30px;
 
     // Cambiar el color cuando el mouse se ponga encima del botón
     &:hover{
