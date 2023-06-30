@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
+import Error from './Error'
 import useSelectMonedas from '../hooks/useSelectMonedas'
 import { monedas } from '../data/monedas'
 
@@ -27,6 +28,9 @@ const InputSubmit = styled.input`
 const Formulario = () => {
 
     const [criptos, setCriptos] = useState([])
+
+    // Constante para controlar errores, se inica en false por defecto 
+    const [error, setError] = useState(false)
 
     const [ moneda, SelectMonedas ] = useSelectMonedas("Elige tu moneda", monedas)
 
@@ -60,17 +64,45 @@ const Formulario = () => {
 
     }, [])
 
-  return (
-    <form>
 
-        <SelectMonedas />
-        <SelectCriptomoneda />
-        
-        <InputSubmit 
-            type='submit' 
-            value='Cotizar'
-        />
-    </form>
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        // Crear mensaje de alerta en caso de que se consulten datos vacíos
+        if([moneda, criptomoneda].includes("")){
+            
+            setError(true)
+
+            return
+        }
+
+        // En caso de que se complete bien el formulario no se lanza el mensaje de error
+        setError(false)
+
+    }
+
+  return (
+    
+    <>
+
+        {/* En caso de que haya un error salta un mensaje de error  */}
+
+        {error && <Error>Todos los campos son obligatorios</Error>} 
+
+        <form
+            onSubmit={handleSubmit}
+        >
+
+            <SelectMonedas />
+            <SelectCriptomoneda />
+            
+            <InputSubmit 
+                type='submit' 
+                value='Cotizar'
+            />
+        </form>
+
+    </>
   )
 }
 
