@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
+import Resultado from './components/Resultado'
 
 import ImagenCripto from "./img/imagen-criptos.png"
 
@@ -80,6 +81,10 @@ function App() {
                 <Formulario 
                     setMonedas={setMonedas}
                 />
+
+                {/* Muestra el resultado de las cotizaciones solamente si se ingresan datos para consultar */}
+                {resultado.PRICE && <Resultado resultado={resultado} />}
+
             </div>
             
         </Contenedor>
